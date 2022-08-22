@@ -10,7 +10,7 @@
 To run this project:
 
 * Pobrać project
-* Umieścić projektw foldrze (XAMP)
+* Umieścić projektw folderze htdocs(XAMP)
 * Uruchomić server Apache i MySQL
 * W phpmyAdmin dodać bazę danych (schema znajduje się w pliku authapp.sql)
 * W terminalu przejść do folderu projektu
