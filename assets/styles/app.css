@@ -1,0 +1,36 @@
+body {
+    font-family: Montserrat, serif;
+    background-color: #1a1a1a;
+    color: #FFFFFF;
+}
+
+.button {
+    border-radius: 10px;
+    background: #25921c;
+    padding: 10px;
+    color: #fff;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 0
+}
+
+.field {
+    margin: 5px;
+    padding: 5px;
+    font-size: .8em;
+    background: #9d9fa7;
+    color: #000000;
+    border: 0;
+    border-radius: 10px;
+}
+
+label {
+    display: grid;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+}
+
+

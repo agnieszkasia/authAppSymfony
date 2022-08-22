@@ -1,0 +1,48 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+<section>
+    <div class="header-title">
+        <h1>{{ title }}</h1>
+    </div>
+
+    <div class="content">
+        <table>
+            <tr>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Emial</th>
+                <th>Opis</th>
+                <th>Stanowisko</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.surname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.description }}</td>
+                    <td>{{ user.position }}</td>
+                    <td>
+                        <div class="table-dropdown-button">
+                            <a class="button small">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                            </a>
+                            <div class="table-dropdown-list">
+                                <ul>
+                                    <li><a href="{{ path('admin_update_user', {id: user.id}) }}">EDYTUJ</a></li>
+                                    <li><a href="{{ path('admin_delete_user', {id: user.id}) }}">USUŃ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</section>
+{% endblock %}

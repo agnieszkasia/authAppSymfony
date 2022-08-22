@@ -1,0 +1,46 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<section>
+    <div class="header-title">
+        <h1>{{ title }}</h1>
+    </div>
+
+    <div class="content">
+        {{ form(form) }}
+    </div>
+</section>
+
+<script type="text/javascript">
+    let position = $('#user_position');
+
+    changeForm(position.val())
+
+    position.on('change', function (){
+        changeForm($(this).val())
+    })
+
+    function changeForm(position)
+    {
+        let developer = $('#user_developerInfo')
+        let projectManager = $('#user_projectManagerInfo')
+        let tester = $('#user_testerInfo')
+
+        if (position === 'developer') {
+            projectManager.hide();
+            tester.hide();
+            developer.show();
+        } else if (position === 'projectManager') {
+            developer.hide();
+            tester.hide();
+            projectManager.show();
+        } else if (position === 'tester') {
+            developer.hide();
+            projectManager.hide();
+            tester.show();
+        }
+    }
+</script>
+{% endblock %}

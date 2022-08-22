@@ -1,0 +1,83 @@
+version: '3.9'
+
+networks:
+  auth-app-symfony:
+
+services:
+
+  # nginx
+  nginx-service:
+    image: nginx:stable-alpine
+    container_name: nginx-container
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/project
+      - ./default.conf:/etc/nginx/default.conf
+    depends_on:
+      - php74-service
+      - mysql
+    networks:
+      - auth-app-symfony
+
+
+  # php
+  php74-service:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: php74-container
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./app:/var/www/project
+    networks:
+      - auth-app-symfony
+
+  mysql:
+    image: mysql
+    container_name: mysql8-container
+    ports:
+      - "4306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    restart: always # always restart unless stopped manually
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    networks:
+      - auth-app-symfony
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin-container
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - '8081:80'
+    volumes:
+      - /sessions
+    networks:
+      - auth-app-symfony
+
+  # node
+  node-service:
+    image: node
+    container_name: node-container
+    volumes:
+      - ./src:/var/www/project
+    working_dir: /var/www/project
+    networks:
+      - auth-app-symfony
+
+  mailhog:
+    container_name: mailhog-container
+    image: mailhog/mailhog
+    restart: always
+    logging:
+      driver: "none"
+    ports:
+      - "8025:8025"
+      - "1025:1025"
