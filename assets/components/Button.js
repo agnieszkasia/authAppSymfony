@@ -1,17 +1,9 @@
-import React, {Component} from 'react';
-import {Route, Link, withRouter} from 'react-router-dom';
+import React from "react";
 
-class Checkbox extends Component {
-    render() {
-        const { label, surname, name } = this.state
+const Button = () => (
+    <div style={{textAlign: 'right'}}>
+        <button className="button" type="submit">Zapisz</button>
+    </div>
+)
 
-        return (
-            <label>
-                {label}:
-                <input type='checkbox' name={name} value={surname}/>
-            </label>
-        )
-    }
-}
-
-export default Checkbox;
+export default Button

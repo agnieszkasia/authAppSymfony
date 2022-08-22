@@ -1,44 +1,46 @@
 import React, {Component} from 'react';
-import {Route, Link, withRouter} from 'react-router-dom';
 
-class Form extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            surname: '',
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+class Select extends Component {
+    static defaultProps = {
+        required: false
     }
 
-    handleChange(event) {
-        console.log(event.target.value)
-        this.setState({name: event.target.value});
+    state = {
+        options: [
+            {
+                value: 'tester',
+                label: 'Tester'
+            },
+            {
+                value: 'developer',
+                label: 'Developer'
+            },
+            {
+                value: 'projectManager',
+                label: 'Project Manager'
+            }
+        ],
+        name: this.props.name,
+        label: this.props.label,
+        id: this.props.id,
+        onChange: this.props.onChange,
+        required: this.props.required
     }
 
-    handleSubmit(event) {
-        alert('Podano następujące imię: ' + this.state.value);
-        alert('Podano następujące imię: ' + this.state.value);
-        //tutaj odwołanei do dodawania użytkownika do bazy
-        event.preventDefault();
-    }
+
     render() {
+        const { label, name, id, options, onChange, required } = this.state
+
         return (
-            <form>
-                <label>
-                    Imię:
-                    <input type='text' name="name" onChange={this.handleChange} value={name}/>
-                </label>
-                <label>
-                    Nazwisko:
-                    <input type='text' name="surname" onChange={this.handleChange} value={surname}/>
-                </label>
-                <input type="submit" value="Wyślij" />
-            </form>
+            <label>
+                {label}{required?'*':''}
+                <select name={name} id={id} onChange={onChange} className="field" required={required}>
+                    <option value="">-</option>
+                    {options.map(option => <option value={option.value} key={option.value}>{option.label}</option>)}
+                </select>
+            </label>
         )
     }
 }
 
-export default Form;
+export default Select;
