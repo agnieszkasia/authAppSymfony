@@ -12,25 +12,22 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./app:/var/www/project
-      - ./default.conf:/etc/nginx/default.conf
+      - ./public:/var/www/project/public
+      - ./default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php74-service
       - mysql
     networks:
       - auth-app-symfony
 
-
-  # php
   php74-service:
     build:
-      context: .
-      dockerfile: ./Dockerfile
+      context: ./
     container_name: php74-container
     ports:
       - "9000:9000"
     volumes:
-      - ./app:/var/www/project
+      - .:/var/www/project
     networks:
       - auth-app-symfony
 
@@ -44,6 +41,7 @@ services:
     restart: always # always restart unless stopped manually
     environment:
       MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: authapp
     networks:
       - auth-app-symfony
 
@@ -67,8 +65,9 @@ services:
     image: node
     container_name: node-container
     volumes:
-      - ./src:/var/www/project
+      - .:/var/www/project
     working_dir: /var/www/project
+    command: "npm run watch"
     networks:
       - auth-app-symfony
 
@@ -81,3 +80,5 @@ services:
     ports:
       - "8025:8025"
       - "1025:1025"
+    networks:
+    - auth-app-symfony     
