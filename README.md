@@ -9,13 +9,11 @@
 ## Instalacja
 To run this project:
 
-* Pobrać project
-* Umieścić projektw folderze htdocs(XAMP)
-* Uruchomić server Apache i MySQL
-* W phpmyAdmin dodać bazę danych (schema znajduje się w pliku authapp.sql)
-* W terminalu przejść do folderu projektu
-```
-composer install
-docker-compose up -d --build mailhog
-```
-* przejść w przeglądarce na localhost
+* Fetch project
+* Fetch dependencies locally (in the project dir)
+    * composer install
+    * npm install 
+* Set up containers by executing `docker-compose up -d`
+* Execute migrations by hand
+    * docker exec -i mysql8-container mysql -u root --password=1234 authapp < authapp.sql
+* Go to address in a browser `http://localhost:8080`

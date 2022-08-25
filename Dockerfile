@@ -12,3 +12,9 @@ WORKDIR /var/www/project
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN curl -sS https://get.symfony.com/cli/installer | bash
+
+RUN usermod -u 1000 www-data
+
+RUN chown -R www-data:www-data /var/www/project
+
+USER www-data
